@@ -1,0 +1,1 @@
+cmake -DLUA_LIBRARIES:PATH="C:/Program Files (x86)/Lua/5.1/lib/liblua54.a" -DLUA_INCLUDE_DIR:PATH="C:/Program Files (x86)/Lua/5.1/include" -G "MinGW Makefiles" ..

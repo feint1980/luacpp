@@ -95,6 +95,18 @@ void LuaContext::CompileFile(const std::string &name, const std::string &fname, 
 	registry.CompileAndAddFile(name,fname, recompile);
 }
 
+
+std::string convertWstringToString(const std::wstring &wstr) {
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+
+	return converter.to_bytes(wstr);
+}
+
+void LuaContext::CompileFile(const std::wstring &name, const std::wstring &fname, bool recompile) {
+	registry.CompileAndAddFile(convertWstringToString(name),convertWstringToString(fname), recompile);
+}
+
+
 void LuaContext::CompileFolder(const std::string &path) {
 	CompileFolder(path, "", false);
 }
@@ -110,9 +122,9 @@ void LuaContext::CompileFolder(const std::string &path, const std::string &prefi
 			if (path.extension() == ".lua") {
 				try {
 					if (prefix == "") {
-						CompileFile(path.stem().native() ,path, recompile);
+						CompileFile(convertWstringToString(path.stem().native().c_str()) ,path.string(), recompile);
 					} else {
-						CompileFile(prefix+"."+path.stem().native() ,path, recompile);
+						CompileFile( std::string(prefix+ "." + convertWstringToString(path.stem().native().c_str())) ,path.string(), recompile);
 					}
 				} catch (std::logic_error &e) {
 				}

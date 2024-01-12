@@ -223,6 +223,10 @@ namespace LuaCpp {
 		void CompileFile(const std::string &name, const std::string &fname, bool recompile);
 
 
+
+		// Replicate of the above methods with wstring
+		void CompileFile(const std::wstring &name, const std::wstring &fname, bool recompile);
+
 		/**
 		 * @brief Compiles all of the `.lua` files from the folder and adds them to the registry
 		 *
